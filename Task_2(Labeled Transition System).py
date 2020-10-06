@@ -9,7 +9,7 @@ class TransitionSystem:
         self.finish = args['finish']
         self.transitions = args['transitions']
 
-    def accept(self, c):
+    def accept(self, s):
         W = []
         closing = closure(self, ['start'])   #W ← {(s, 0) | s ∈ closure(T , {s∗})};
         closing.remove('start')
@@ -18,14 +18,14 @@ class TransitionSystem:
         while len(W)!=0:    #foreach x ∈ W do
             x = W[0]
             W.remove(x)     #W ← W \ {x};
-            if x[1] == len(c):  #x_snd = |c|
+            if x[1] == len(s):  #x_snd = |c|
                 for el in W:
-                    if el[0] == 'finish' and el[1] == len(c): #x_fst=s*
+                    if el[0] == 'finish' and el[1] == len(s): #x_fst=s*
                         return True                  
             states = []
             for transition in self.transitions:
-                if x[1] >= len(c): return False
-                if transition[0] == x[0] and transition[1] == c[x[1]]:
+                if x[1] >= len(s): return False
+                if transition[0] == x[0] and transition[1] == s[x[1]]:
                     states.append(transition[2])
             for state in states:              #W ← W ∪ {(s, xsnd + 1) | (xfst, c[xsnd], s) ∈ T};
                 W.append((state, x[1]+1))
