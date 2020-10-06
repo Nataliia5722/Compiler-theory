@@ -1,7 +1,6 @@
 import copy
 
 class TransitionSystem:
-    
     def __init__(self, **args):
         self.token = args['token']
         self.state = args['state']
@@ -53,7 +52,6 @@ transitionSystem = TransitionSystem(token=('a','b'), state=('start', 'Seven', 'o
 
 def closure(transition_system, closed_set):
     transitions = copy.copy(transition_system.transitions)
-
     if len(closed_set) == 0:
         return closed_set
     result = closed_set
