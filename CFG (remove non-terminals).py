@@ -7,6 +7,13 @@ class CFG:
         self.remove_e()
         self.remove_nongenerative_nonterminals()
         self.remove_unreachable_nonterminals()
+
+    def remove_e(self):
+       keys = list(self.rules.keys())
+       for k in keys:
+            for el in self.rules[k]:
+                if el == 'e':
+                    self.rules[k].remove(el) 
         
 
     def remove_nongenerative_nonterminals(self):
@@ -46,12 +53,6 @@ class CFG:
                 self.rules.pop(el)
                 self.nonterminals.remove(el)
 
-    def remove_e(self):
-        keys = list(self.rules.keys())
-        for k in keys:
-            for el in self.rules[k]:
-                if el == 'e':
-                    self.rules[k].remove(el)
 
 
 terminals = ['a', 'b', 'c']
