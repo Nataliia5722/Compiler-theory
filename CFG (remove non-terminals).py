@@ -52,7 +52,31 @@ class CFG:
             if el not in grammar:
                 self.rules.pop(el)
                 self.nonterminals.remove(el)
+                
+                
+               
+def disappearing_nonterminals(grammar):
+    keys = list(grammar.rules.keys())
+    disappear = []
+    for term in keys:
+        for el in grammar.rules[term]:
+            if el == 'e':
+                vanishings.append(term)
 
+    gr = []
+    while gr != disappear:
+        gr = disappear
+        for term in keys:
+            for el in grammar.rules[term]:
+                if el.isupper():
+                    flag = True
+                    for elem in el.split():
+                        if elem not in disappear:
+                            flag = False
+                            break
+                    if flag:
+                        disappear.append(term)
+    return disappear
 
 
 terminals = ['a', 'b', 'c']
@@ -65,6 +89,9 @@ rules = {'S': ['Ac', 'e', 'a', 'e' ], 'A':['A', 'Sb', 'e'], 'B':['e', 'a']}
 
 print("Initial grammar:")
 print(rules)
-gr = CFG(terminals=terminals, nonterminals=nonterminals, start=start, rules=rules)
+grammar = CFG(terminals=terminals, nonterminals=nonterminals, start=start, rules=rules)
 print("Final grammar without e and unproductive and unreachable non-terminals")
-print(gr.rules)
+print(grammar.rules)
+
+print("Set of disappeearing nonterminals from the given grammar:")
+print(disappearing_nonterminals(grammar))
